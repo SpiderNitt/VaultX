@@ -1,0 +1,22 @@
+[toolchain]
+
+[features]
+seeds = false
+skip-lint = false
+
+[programs.devnet]
+monthly_subscription_solana = "FwNe8kWDNBidqmntkHx72XuHy6j2DJ4a62PibXAVU7vX"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "Devnet"
+wallet = "/home/mateo/.config/solana/id.json"
+
+[scripts]
+create = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/create.ts"
+suscribe = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/suscribe.ts"
+use = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/use.ts"
+renew = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/renew.ts"
+close = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/close.ts"
