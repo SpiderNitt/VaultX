@@ -1,0 +1,59 @@
+.Main_Input_Signup_Box{
+    display: flex;
+    flex-direction: column; 
+    margin-left: 50px; 
+}
+.Main_Input_Signup_Email_Box, .Main_Input_Signup_Password_Box {
+    margin: 5px 0; 
+}
+.Main_Input_Signup_Email_Input, .Main_Input_Signup_Password_Input {
+    width: 250px;
+    height: 20px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #ccc;
+    padding: 5px;
+    font-size: 16px;
+    border-width: 0;
+    border-radius: 10px;
+    font-size: 12px;
+}
+.Main_Input_Signup_Email_Text, .Main_Input_Signup_Password_Text {
+    margin-bottom: 5px; 
+    color: white;
+    font-weight: bold;
+}
+.Main_Input_Signup_Sign_In_Btn{
+    background-color: transparent;
+    width: 100%;
+    padding: 10px 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    border: 1px solid white; 
+    border-radius: 20px;     
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+.Main_Input_Signup_Sign_In_Btn:hover{
+    color: black;
+    background-color: white;
+}
+.Main_Input_Login_Box_Password_Input_Container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .Main_Input_Login_Box_Password_Input {
+    width: 100%;
+  }
+  
+  .password-toggle-icon {
+    position: absolute;
+    top: 50%;
+    right: 1px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+  }
