@@ -45,6 +45,7 @@ const Header_Home = () => {
       <span className="Header_Home_Box_Navigator_Btn_Box">
         <Link to="/" className="Header_Home_Box_Home_Btn">Home</Link>
         <a href="#" className="Header_Home_Box_Investment_Btn">Investment</a>
+        <Link to="/cashback" className="Header_Home_Box_Investment_Btn">Cashback</Link>
         <a href="#" className="Header_Home_Box_About_Us_Btn">About Us</a>
         <a href="#" className="Header_Home_Box_Contact_Us_Btn">Contact Us</a>
       </span>
