@@ -1,84 +1,90 @@
-const express = require("express");
+const express = require('express');
+const cors = require('cors');
+const Stripe = require('stripe');
 const axios = require('axios');
-const crypto = require('crypto');
+const Binance = require('node-binance-api');
 
+const stripe = Stripe('sk_test_51Pk7RcJWc1zagewB2RWOyTU9bQK2qJFwLWS4gIzH6toySAvLcInXBs2o0F4htylWABHhBPHiDrehODHBmoWMwnKt00smDV7cpo');
 const app = express();
 
 
+app.use(cors({
+  origin: 'http://localhost:3000',  
+  methods: ['GET', 'POST'],
+  credentials: true 
+}));
+
 app.use(express.json());
 
-const apiUrl = 'https://api.binance.com';
+const binance = new Binance().options({
+  APIKEY: 'DMhrPkmX9LszRT1fpmYS7iGJk3FtUkFd3GJ1QAVd11Z0v4fqiwIWs9XTEYzGVD84',
+  APISECRET: 'P0Phv3kJY6GzxZpSUadPb6eY4guKhVLuhwhXR4rmZvDLDSJOezgl7Ng9IGbtDuMP'
+});
 
-
-const apiKey = 'DMhrPkmX9LszRT1fpmYS7iGJk3FtUkFd3GJ1QAVd11Z0v4fqiwIWs9XTEYzGVD84';
-const apiSecret = 'P0Phv3kJY6GzxZpSUadPb6eY4guKhVLuhwhXR4rmZvDLDSJOezgl7Ng9IGbtDuMP';
-
-
-function createSignature(queryString, secret) {
-  return crypto.createHmac('sha256', secret).update(queryString).digest('hex');
-}
-
-
-async function buySolana(quantity) {
-  const endpoint = '/api/v3/order';
-  const symbol = 'SOLUSDT';  
-  const side = 'BUY';
-  const type = 'MARKET';
-
-  
-  const timestamp = Date.now();
-  const params = `symbol=${symbol}&side=${side}&type=${type}&quantity=${quantity}&timestamp=${timestamp}`;
-
-  
-  const signature = createSignature(params, apiSecret);
+app.post('/create-checkout-session', async (req, res) => {
+  const { amount } = req.body;
 
   try {
-    
-    const response = await axios.post(
-      `${apiUrl}${endpoint}?${params}&signature=${signature}`,
-      null, 
-      {
-        headers: {
-          'X-MBX-APIKEY': apiKey
-        }
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Buy Solana',
+            },
+            unit_amount: amount,
+          },
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+      success_url: 'http://localhost:3000/success',
+      cancel_url: 'http://localhost:3000/cancel',
+    });
+
+    res.json({ id: session.id });
+  } catch (error) {
+    console.error("Error creating checkout session:", error);
+    res.status(500).json({ error: 'Failed to create session' });
+  }
+});
+
+
+app.post('/purchase-solana', async (req, res) => {
+  const { fiatAmount, walletAddress } = req.body;
+
+  try {
+    const solPriceResponse = await axios.get('https://api.binance.com/api/v3/ticker/price?symbol=SOLUSDT');
+    const solPrice = parseFloat(solPriceResponse.data.price);
+
+    const solAmount = (fiatAmount / solPrice).toFixed(6);
+
+    binance.marketBuy('SOLUSDT', solAmount, (error, response) => {
+      if (error) {
+        console.error("Error buying Solana:", error.body);
+        return res.status(500).json({ success: false });
       }
-    );
-    
-    return response.data;  
+
+      console.log("Market Buy response", response);
+
+     
+
+      res.json({ success: true, solAmount });
+    });
   } catch (error) {
-    
-    if (error.response) {
-      
-      console.error('Binance API Error:', error.response.data);
-      throw new Error(JSON.stringify(error.response.data));
-    } else {
-      
-      console.error('Error placing order:', error.message);
-      throw new Error('Failed to place order. Please check your API credentials and request.');
-    }
-  }
-}
-
-
-app.post('/buy', async (req, res) => {
-  const { quantity } = req.body;  
-
-  
-  if (!quantity) {
-    return res.status(400).json({ error: 'Quantity is required' });
-  }
-
-  try {
-    const orderResponse = await buySolana(quantity);
-    res.status(200).json({ message: 'Order placed successfully', orderResponse });
-  } catch (error) {
-    
-    console.error('Error:', error.message);
-    res.status(500).json({ error: error.message });
+    console.error("Error purchasing Solana:", error);
+    res.status(500).json({ success: false });
   }
 });
 
-
-app.listen(3000, () => {
-  console.log('Server running on port 3000');
+const PORT = 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
+
+ 
+ 
+
+ 
