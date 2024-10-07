@@ -1,7 +1,13 @@
 {
   "dependencies": {
-    "@solana/wallet-adapter-base": "^0.9.23",
-    "@solana/wallet-adapter-react": "^0.15.35",
-    "@solana/wallet-adapter-react-ui": "^0.9.35"
+    "@solana/web3.js": "^1.95.3",
+    "axios": "^1.7.7",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "express": "^4.21.0",
+    "node-binance-api": "^0.13.1",
+    "pg": "^8.13.0",
+    "stripe": "^17.1.0"
   }
 }
