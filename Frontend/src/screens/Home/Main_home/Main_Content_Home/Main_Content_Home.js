@@ -57,7 +57,8 @@ const Main_Content_Home = () => {
       const purchaseResult = await purchaseResponse.json();
 
       if (purchaseResult.success) {
-        alert(Success! ${purchaseResult.solAmount} SOL has been transferred to your Phantom wallet.);
+        alert(`Success! ${purchaseResult.solAmount} SOL has been transferred to your Phantom wallet.`);
+
       } else {
         alert("Failed to transfer SOL. Please try again.");
       }
@@ -96,3 +97,4 @@ const Main_Content_Home = () => {
 };
 
 export default Main_Content_Home;
+
