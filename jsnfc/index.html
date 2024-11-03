@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web NFC Reader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        #errorMessage {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Web NFC Reader</h1>
+    <button id="readNfc">Read NFC</button>
+    <p id="errorMessage"></p>
+
+    <script>
+        document.getElementById('readNfc').addEventListener('click', async () => {
+            try {
+                const ndef = new NDEFReader();
+                await ndef.scan();
+
+                ndef.onreading = event => {
+                    document.body.style.backgroundColor = "lightgreen";
+                    document.getElementById('errorMessage').textContent = "";
+                };
+                
+                ndef.onerror = event => {
+                    document.getElementById('errorMessage').textContent = "NFC read failed. Please try again.";
+                };
+            } catch (error) {
+                console.error(error);
+                document.getElementById('errorMessage').textContent = "Error: " + error.message;
+            }
+        });
+    </script>
+</body>
+</html>
