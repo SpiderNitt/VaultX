@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "jsnfc",
+			"path": "../../../../../jsnfc"
+		},
+		{
+			"name": "VaultX",
+			"path": "../../../.."
+		}
+	],
+	"settings": {}
+}
