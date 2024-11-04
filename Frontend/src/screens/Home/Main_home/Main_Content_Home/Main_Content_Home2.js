@@ -4,7 +4,7 @@ import { MoonPayProvider } from '@moonpay/moonpay-react';
 import { MoonPayBuyWidget } from '@moonpay/moonpay-react';
 
 
-function App(){
+function Main_Content_Home (){
  
 
   
@@ -178,5 +178,5 @@ const styles = {
   },
 };
 
-export default App;
+export default Main_Content_Home ;
 
