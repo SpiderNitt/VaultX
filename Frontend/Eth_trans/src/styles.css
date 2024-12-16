@@ -1,0 +1,70 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    font-family: Arial, sans-serif;
+  }
+  
+  .account-card, .transaction-card, .wallet-options {
+    border: 1px solid #fff;
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 400px;
+    margin: 16px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    color: #333;
+    text-align: center;
+  }
+  
+  .account-info p {
+    margin: 12px 0;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .disconnect-button, .send-button, .wallet-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .disconnect-button:hover, .send-button:hover, .wallet-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .input-field {
+    width: calc(100% - 20px);
+    padding: 12px 10px;
+    margin: 12px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  
+  .transaction-hash {
+    margin-top: 20px;
+    color: #28a745;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .wallet-options {
+    text-align: center;
+  }
+  
+  .wallet-options h2, .transaction-card h2 {
+    margin-bottom: 20px;
+    color: #007bff;
+    font-size: 24px;
+  }
+  
